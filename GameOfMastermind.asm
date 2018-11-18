@@ -7,10 +7,20 @@
 	.align 2
 	
 test:	.asciiz "Enter a Value to guess"
-guess: .ascii "The number of guesses you have attempted is"
-space: .ascii "\n"
 
+guess: .asciiz "The number of guesses you have attempted is"
 
+space: .asciiz "\n"
+
+pico: .asciiz "Pico"
+
+bagel: .asciiz  "bagel"
+
+fermi: .asciiz "Fermi"
+
+win: 	.asciiz "You have guessed the correct number"
+
+givenup: .asciiz "You have given up"
 
 .text
 .globl main 
@@ -26,7 +36,7 @@ main:
 	jal randnum 
 	move $s1, $a0 #store result returned in $s1 register
 	
-	move $v0, $a0  #Printing out to make sure random number worked
+	#move $v0, $a0  #Printing out to make sure random number worked
 	
 	
 	
@@ -37,9 +47,7 @@ main:
 
 
 loop:
-	beq $s3, 0000, done
-	
-	
+	beq $s3, 0000, Gdone
 	#jal check
 	
 	#jal hits
@@ -49,44 +57,29 @@ loop:
 	syscall 	
 	
 	li	$v0, 5
-	syscall			#obtain the value from the user
+	syscall			#obtain the value from the user	
 	
 	move $s3,$v0
-
-
-
 	move $a0, $s3
 	move $a1,$s1
 	move $a2,$s0  
 	jal check
 	#jal hits
 	move $s0, $v1 
-	
-	
-	move $a0,$s3
-	move $a1, $s1
-	jal hits 
+	#move $a0,$s3
+	#move $a1, $s1
+	#jal hits 
 	
 	#move $s4, $v0 
-	
-		
-				
+			
 	#addi $s1, $s1, 1
 			
 							
 	j loop
-	
-	
-	
-	
+
 	li  $v0, 10             # TTFN
        	syscall      
-	
-		
 
-	
-
-		
 randnum: 	
 	addi $sp, $sp, -8	    #add -8 to the stack in order to store our values
         sw   $ra, 4($sp)	    #we store the return value on the stack
@@ -100,14 +93,11 @@ randnum:
 	add $s1,$a0,$0
 	
 	
-	blt $s1,$t2,randnum 
-	
-	
+	blt $s1,$t2,randnum 	
 	#li $v0, 1
 	#syscall 
 	
 	move $v0, $a0    #Move our result to v0 
-	
 	
 	lw   $ra, 4($sp)	#need to reallocate memory to the stack 
 	lw   $s1, 0($sp)	#need to reallocate memory to the stack 
@@ -123,7 +113,7 @@ check:
 	
 	
 	
-	beq $t0,$t1, done 
+	beq $t0,$t1, Wdone 
 	
 	
 	addi $t2,$t2,1
@@ -136,28 +126,52 @@ check:
 	jr $ra
 
 hits:
-	la $t1, $a0
-	la $t2, $a1
+	la $s5, 0($a0)
+	la $s6, 0($a1) 
+	#j loopf
+	
+	#beq $s5, $s6, fermip 
 	
 	
-	lw $t3, 0($t1)
+	addi $s5, $s5, 4
+	addi $s6, $s6, 4
+
+	la $a0, guess #Printing to the screen 
+	li $v0, 4
+	syscall 
+			
+	move $t5, $t3
+	
+	move $a0, $t5
+	li $v0, 1 
+	syscall 
+	jr $ra
+	#beq 0($a0), 0($a1), test
+	#sw $a0, 0($s5)
+	#sw $a1, 0($s6)
+	
+	#move $t1, $a0
+	#move $t2, $a1
+	
+	#lw $t3, 0($t1)
 	#move $t1, $a0 #user guess
 	#move $t2, $a1 #rando answer
 	
-
 	#move $t1,0($t1)
 	#sw $t2,0($t2)
-	
-	
 	#lw $t3, 0($t1)
-	move $a0, $t3
-	li $v0, 1
-	syscall
-	
-	jr $ra
+#test: #
+#	li $a0, 00000000000000000000111111111#
+#	li $v0,1
+#	syscall
 
-
-done: 
+Wdone: 
+	la $a0, win
+	li $v0, 4
+	syscall 
+	la	$a0, space	#Prompt the user to enter a value
+	li 	$v0, 4	
+	syscall 
 	la $a0, guess #Printing to the screen 
 	li $v0, 4
 	syscall 
@@ -175,5 +189,49 @@ done:
 		
 	li  $v0, 10             # TTFN
        	syscall      
+Gdone: 
+	la $a0, givenup
+	li $v0, 4
+	syscall 
+	la	$a0, space	#Prompt the user to enter a value
+	li 	$v0, 4	
+	syscall 
+	la $a0, guess #Printing to the screen 
+	li $v0, 4
+	syscall 
+	la	$a0, space	#Prompt the user to enter a value
+	li 	$v0, 4	
+	syscall 
+	
+	move $v0,$0
+	
+	move $a0, $s0  #Printing out to make sure random number worked
 	
 	
+	li $v0, 1
+	syscall 
+		
+	li  $v0, 10             # TTFN
+       	syscall      
+		
+		
+#fermi: 
+
+#	la $a0, fermi
+#	li $v0, 4
+#	syscall 
+	
+
+
+#ppico: 
+#	la $a0, pico 
+#	li $v0, 4
+#	syscall 
+
+
+#pbagel: 
+#	la $a0, bagel 
+#	li $v0, 4
+#	syscall 
+	
+

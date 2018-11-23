@@ -238,7 +238,7 @@ hits:
 	addi $sp, $sp, -8	    #add -8 to the stack in order to store our values
         sw   $ra, 4($sp)	    #we store the return value on the stack
         sw   $s1, 0($sp)   
-
+	move $s6,$0
 
 	move $s7, $a0 #User 
 	move $s3, $a1 #Actual 
@@ -305,9 +305,9 @@ step13:	beq $t9, $t2 check13
 step14:	beq $t9, $t3 check14
 step15:	beq $t9, $t4 check15 
 step16:	beq $t9, $t5 check16
-step17:
+step17: beq $s6,$0, check17
 
-
+step18:
 
 #############################################################
 
@@ -318,6 +318,7 @@ step17:
 
 	jr $ra
 check1:
+	addi $s6,$s6,1
 	la $a0, fermi
 	li $v0, 4
 	syscall 
@@ -325,72 +326,89 @@ check1:
 	
 
 check2:
+	addi $s6,$s6,1
 	la $a0, pico
 	li $v0, 4
 	syscall
 	j step3
 	
 check3:
+	addi $s6,$s6,1
 	la $a0, pico
 	li $v0, 4
 	syscall
 	j step4
 check4:
+	addi $s6,$s6,1
 	la $a0, pico
 	li $v0, 4
 	syscall
 	j step5
+	#########################
 check5:
+	addi $s6,$s6,1
 	la $a0, pico
 	li $v0, 4
 	syscall
 	j step6
 check6:
+	addi $s6,$s6,1
 	la $a0, fermi
 	li $v0, 4
 	syscall 
 	j step9 
 check7:	
+	addi $s6,$s6,1
 	la $a0, pico
 	li $v0, 4
 	syscall
 	j step8 
 check8:
+	addi $s6,$s6,1
 	la $a0, pico
 	li $v0, 4
 	syscall
 	j step9 
+	########################################
 check9:
+	addi $s6,$s6,1
 	la $a0, pico
 	li $v0, 4
 	syscall
 	j step10
 check10:
-	la $a0, fermi
+	addi $s6,$s6,1
+	la $a0, pico
 	li $v0, 4
 	syscall 
-	j step13
+	j step11
 check11:
-	la $a0, pico
+	addi $s6,$s6,1
+	la $a0, fermi
 	li $v0, 4
 	syscall
-	j step12 
+	j step13 
 check12:
+	addi $s6,$s6,1
 	la $a0, pico
 	li $v0, 4
 	syscall
 	j step13
+	################################################
 check13:
+	addi $s6,$s6,1
 	la $a0, pico
 	li $v0, 4
 	syscall
 	j step14
 check14:
+	addi $s6,$s6,1
 	la $a0, pico
 	li $v0, 4
 	syscall
 	j step15
 check15:
+	addi $s6,$s6,1
 	la $a0, pico
 	li $v0, 4
 	syscall
@@ -398,11 +416,18 @@ check15:
 	j step16
 
 check16:
+	addi $s6,$s6,1
 	la $a0, fermi
 	li $v0, 4
 	syscall 
-	j step17
+	j step18
+check17: 
 
+	la $a0, bagel
+	li $v0, 4
+	syscall 
+	j step18
+######################################################################
 fermisss: 
 	la $a0, fermi
 	li $v0, 4

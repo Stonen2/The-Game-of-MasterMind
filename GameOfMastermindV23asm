@@ -246,65 +246,65 @@ hits:
 	li $t1, 10 
 	
 	div $s7, $t1
-	mfhi $t5
+	mfhi $t6
 	
 	div $s7, $s7, $t1
 	
 	div $s7,$t1
-	mfhi $t6 
+	mfhi $t7 
 #	
 	div $s7 $s7,$t1
 #	
 	div $s7,$t1 
-	mfhi $t7
+	mfhi $t8
 	
 	div $s7, $s7,$t1
 	
 	div $s7,$t1
-	mfhi $t8 
+	mfhi $t9 
 	
-	div $s7, $s7, $t1
+	#div $s7, $s7, $t1
 	
 ###############################################################
 	
 	
 	div $s3, $t1
-	mfhi $t1
+	mfhi $t2
 	
 	div $s3, $s3, $t1
 	
 	div $s3,$t1
-	mfhi $t2 
+	mfhi $t3 
 #	
 	div $s3 $s3,$t1
 #	
 	div $s3,$t1 
-	mfhi $t3
+	mfhi $t4
 	
 	div $s3, $s3,$t1
 	
 	div $s3,$t1
-	mfhi $t4 
+	mfhi $t5 
 	
-	div $s3, $s3, $t1
+	#div $s3, $s3, $t1
 
 
-step1:	beq $t1, $t5 check1 
-step2:	beq $t1, $t6 check2
-step3:	beq $t1, $t7 check3 
-step4:	beq $t1, $t8 check4 
-step5:	beq $t2, $t5 check5
-step6:	beq $t2, $t6 check6
-step7:	beq $t2, $t7 check7 
-step8:	beq $t2, $t8 check8
-step9:	beq $t3, $t5 check9 
-step10:	beq $t3, $t6 check10
-step11:	beq $t3, $t7 check11 
-step12:	beq $t3, $t8 check12
-step13:	beq $t4, $t5 check13 
-step14:	beq $t4, $t6 check14
-step15:	beq $t4, $t7 check15 
-step16:	beq $t4, $t8 check16
+step1:	beq $t6, $t2 check1 
+step2:	beq $t6, $t3 check2
+step3:	beq $t6, $t4 check3 
+step4:	beq $t6, $t5 check4 
+step5:	beq $t7, $t2 check5
+step6:	beq $t7, $t3 check6
+step7:	beq $t7, $t4 check7 
+step8:	beq $t7, $t5 check8
+step9:	beq $t8, $t2 check9 
+step10:	beq $t8, $t3 check10
+step11:	beq $t8, $t4 check11 
+step12:	beq $t8, $t5 check12
+step13:	beq $t9, $t2 check13 
+step14:	beq $t9, $t3 check14
+step15:	beq $t9, $t4 check15 
+step16:	beq $t9, $t5 check16
 step17:
 
 
@@ -321,7 +321,7 @@ check1:
 	la $a0, fermi
 	li $v0, 4
 	syscall 
-	j step2
+	j step5
 	
 
 check2:
@@ -349,7 +349,7 @@ check6:
 	la $a0, fermi
 	li $v0, 4
 	syscall 
-	j step7 
+	j step9 
 check7:	
 	la $a0, pico
 	li $v0, 4
@@ -369,7 +369,7 @@ check10:
 	la $a0, fermi
 	li $v0, 4
 	syscall 
-	j step11
+	j step13
 check11:
 	la $a0, pico
 	li $v0, 4

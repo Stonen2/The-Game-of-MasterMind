@@ -49,10 +49,14 @@ loop:
 	jal check
 	#jal hits
 	move $s0, $v1 
+	add $s4, $s3, $0
 	move $a0,$s3 #User guess
+	
 	move $a1, $s1 #Actual number
 	jal hits 
 	
+	
+	move $s3, $s4
 	
 	
 	
@@ -321,51 +325,82 @@ check1:
 	
 
 check2:
-
+	la $a0, pico
+	li $v0, 4
+	syscall
 	j step3
 	
 check3:
-
+	la $a0, pico
+	li $v0, 4
+	syscall
 	j step4
 check4:
-
+	la $a0, pico
+	li $v0, 4
+	syscall
 	j step5
 check5:
-
+	la $a0, pico
+	li $v0, 4
+	syscall
 	j step6
 check6:
-
+	la $a0, fermi
+	li $v0, 4
+	syscall 
 	j step7 
-check7:
-
+check7:	
+	la $a0, pico
+	li $v0, 4
+	syscall
 	j step8 
 check8:
-
+	la $a0, pico
+	li $v0, 4
+	syscall
 	j step9 
 check9:
-
+	la $a0, pico
+	li $v0, 4
+	syscall
 	j step10
 check10:
-
+	la $a0, fermi
+	li $v0, 4
+	syscall 
 	j step11
 check11:
-
+	la $a0, pico
+	li $v0, 4
+	syscall
 	j step12 
 check12:
-
+	la $a0, pico
+	li $v0, 4
+	syscall
 	j step13
 check13:
-
-	j step 14
+	la $a0, pico
+	li $v0, 4
+	syscall
+	j step14
 check14:
-
+	la $a0, pico
+	li $v0, 4
+	syscall
 	j step15
 check15:
+	la $a0, pico
+	li $v0, 4
+	syscall
 
 	j step16
 
 check16:
-
+	la $a0, fermi
+	li $v0, 4
+	syscall 
 	j step17
 
 fermisss: 
